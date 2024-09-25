@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<header>
+    <div id="titre">
+        <h1>La Cuisine Facile</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <button class="logout-btn" onclick="window.location.href='../index.html'">Se déconnecter</button>
+            <button onclick="openModal()" class="visible">Créer une nouvelle recette</button>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search">
+                <button type="button" id="search-button">
+                    <img src="../assets/images/loupe.svg" alt="Search">
+                </button>
+            </div>
+            <div id="searchResultModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeSearchModal()">&times;</span>
+                    <h2>Résultats de la recherche</h2>
+                    <div id="searchResults"></div>
+                </div>
+            </div>
+        </ul>
+    </nav>
+</header>
+<body>
+    <main>
+        <div class="dashboard">
+            <h1>Tableau de bord</h1>
+            <div class="user-info">
+                <h2>Bienvenue, <span id="username">Chargement...</span> !</h2>
+                <p>Voici votre espace personnel.</p>
+            </div>
+            <div class="user-recipes">
+                <h2>Vos recettes</h2>
+                <div id="userRecipesContainer"></div>
+            </div>
+        </div>
+    <h2>Liste des Recettes</h2>
+    <ul id="recipeList"></ul>
+    <div id="fullRecipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeFullRecipeModal()">&times;</span>
+            <div id="fullRecipeContent"></div>
+        </div>
+    </div>
+    <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <form id="recipeForm">
+                <input type="hidden" id="recipeId" name="recipeId">
+                <label for="title">Titre:</label>
+                <input type="text" id="title" name="title" required>
+                <label>Ingrédients:</label>
+                <div id="ingredientsList">
+                    <div class="ingredient-line">
+                        <input type="text" name="ingredients[]" required>
+                        <button type="button" class="add-line" onclick="addLine('ingredientsList')">+</button>
+                    </div>
+                </div>
+                <label>Instructions:</label>
+                <div id="instructionsList">
+                    <div class="instruction-line">
+                        <input type="text" name="instructions[]" required>
+                        <button type="button" class="add-line" onclick="addLine('instructionsList')">+</button>
+                    </div>
+                </div>
+                <label for="timeprepa">Temps de préparation:</label>
+                <input type="text" id="timeprepa" name="timeprepa" required>
+                <label for="timecooking">Temps de cuisson:</label>
+                <input type="text" id="timecooking" name="timecooking" required>
+                <label for="difficulty">difficulté:</label>
+                <select id="difficulty" name="difficulty" required>
+                    <option value="Facile">Facile</option>
+                    <option value="Moyen">Moyen</option>
+                    <option value="Difficile">Difficile</option>
+                </select>
+                <label for="category">Catégorie:</label>
+                <input type="text" id="category" name="category" required>
+                <label for="image">Ajouter une image (optionnel):</label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <button type="submit">Sauvegarder la recette</button>
+                <button type="button" onclick="closeModal()" class="visible">Annuler</button>
+            </form>
+        </div>
+    </div
+</main>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+    <script src="../assets/js/config.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>API CRUD</title>
+</head>
+
+<body>
+
+    <body>
+        <header>
+            <div id="titre">
+                <h1>La Cuisine Facile</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="./index.html">Accueil</a></li>
+                    <li><a href="#" onclick="openModalIC('inscriptionModal')">Inscription</a></li>
+                    <li><a href="#" onclick="openModalIC('connexionModal')">Connexion</a></li>
+
+                    <div id="inscriptionModal" class="modalIC">
+                        <div class="modal-contentIC">
+                            <span class="close" onclick="closeModalIC('inscriptionModal')">&times;</span>
+                            <form id="inscriptionForm" class="IC">
+                                <h2 class="modal-header">Inscription</h2>
+                                <div class="input-boxIC">
+                                    <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+                                    <i class='bx bxs-user'></i>
+                                </div>
+                                <div class="input-boxIC">
+                                    <input type="password" name="password" placeholder="Mot de passe" required>
+                                    <i class='bx bxs-lock'></i>
+                                </div>
+                                <div class="input-boxIC">
+                                    <input type="password" name="confirmPassword" placeholder="Confirmer mot de passe" required>
+                                    <i class='bx bxs-lock'></i>
+                                </div>
+                                <button type="submit" class="btn">S'inscrire</button>
+                                <div class="register-linkIC">
+                                    <p>Déjà membre? <a href="#" onclick="closeModalIC('inscriptionModal'); openModalIC('connexionModal')">Connexion</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>                    
+                    </div>
+                    <div id="connexionModal" class="modalIC">
+                        <div class="modal-contentIC">
+                            <span class="close" onclick="closeModalIC('connexionModal')">&times;</span>
+                            <form id="connexionForm" class="IC">
+                                <h2 class="modal-header">Connexion</h2>
+                                <div class="input-boxIC">
+                                    <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+                                    <i class='bx bxs-user'></i>
+                                </div>
+                                <div class="input-boxIC">
+                                    <input type="password" name="password" placeholder="Mot de passe" required>
+                                    <i class='bx bxs-lock'></i>
+                                </div>
+                                <div class="remember-forgot">
+                                    <label><input type="checkbox">Se souvenir de moi</label>
+                                    <a href="#">Mot de passe oublie?</a>
+                                </div>
+                                <button type="button" class="btn" onclick="window.location.href='./pages/dashboard.html'">Se connecter</button>
+                                <div class="register-linkIC">
+                                    <p>Pas encore membre? <a href="#" onclick="closeModalIC('connexionModal'); openModalIC('inscriptionModal')">Inscription</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <button onclick="openModal()" class="visible">Créer une nouvelle recette</button>
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Search">
+                        <button type="button" id="search-button">
+                            <img src="./assets/images/loupe.svg" alt="Search">
+                        </button>
+                    </div> 
+                    <div id="searchResultModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeSearchModal()">&times;</span>
+                            <h2>Résultats de la recherche</h2>
+                            <div id="searchResults"></div>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section id="hero">
+                <h1>Votre nouvelle cuisine préférée commence ici.</h1>
+                <p>Trouvez votre bonheur culinaire en quelque clics</p>
+            </section>
+            <section id="features">
+                <div class="carousel">
+                    <article class="slide">
+                        <img src="./assets/images/Gougeres au comte.jpg" alt="Entrée">
+                    </article>
+                    <article class="slide">
+                        <img src="./assets/images/Falafel.jpg" alt="Entrée">
+                    </article>
+                    <article class="slide">
+                        <img src="./assets/images/Ramen au poulet.jpg" alt="Plats">
+                    </article>
+                    <article class="slide">
+                        <img src="./assets/images/Tartiflette au munster.jpg" alt="Plats">
+                    </article>
+                    <article class="slide">
+                        <img src="./assets/images/Cookies.jpg" alt="Dessert">
+                    </article>
+                </div>
+            </section>
+            </section>
+            <h2>Liste des Recettes</h2>
+            <ul id="recipeList"></ul>
+            <div id="fullRecipeModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeFullRecipeModal()">&times;</span>
+                    <div id="fullRecipeContent"></div>
+                </div>
+            </div>
+            <div id="recipeModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <form id="recipeForm">
+                        <input type="hidden" id="recipeId" name="recipeId">
+                        <label for="title">Titre:</label>
+                        <input type="text" id="title" name="title" required>
+                        <label>Ingrédients:</label>
+                        <div id="ingredientsList">
+                            <div class="ingredient-line">
+                                <input type="text" name="ingredients[]" required>
+                                <button type="button" class="add-line" onclick="addLine('ingredientsList')">+</button>
+                            </div>
+                        </div>
+                        <label>Instructions:</label>
+                        <div id="instructionsList">
+                            <div class="instruction-line">
+                                <input type="text" name="instructions[]" required>
+                                <button type="button" class="add-line" onclick="addLine('instructionsList')">+</button>
+                            </div>
+                        </div>
+                        <label for="timeprepa">Temps de préparation:</label>
+                        <input type="text" id="timeprepa" name="timeprepa" required>
+                        <label for="timecooking">Temps de cuisson:</label>
+                        <input type="text" id="timecooking" name="timecooking" required>
+                        <label for="difficulty">difficulté:</label>
+                        <select id="difficulty" name="difficulty" required>
+                            <option value="Facile">Facile</option>
+                            <option value="Moyen">Moyen</option>
+                            <option value="Difficile">Difficile</option>
+                        </select>
+                        <label for="category">Catégorie:</label>
+                        <input type="text" id="category" name="category" required>
+                        <label for="image">Ajouter une image (optionnel):</label>
+                        <input type="file" id="image" name="image" accept="image/*">
+                        <button type="submit">Sauvegarder la recette</button>
+                        <button type="button" onclick="closeModal()" class="visible">Annuler</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2024 - Gestion de Projets. Tous droits reserves. Marina TACITE</p>
+        </footer>
+        <script src="./assets/js/script.js"></script>
+        <script src="./assets/js/animation.js"></script>
+
+
+    </body>
+
+</html>
+</body>
+
+</html>
